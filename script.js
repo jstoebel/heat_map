@@ -67,31 +67,18 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
 
           .on('mouseover', function(d) {
 
-              var lineOne = `<div>${months[d.month]}, ${d.year}</div>`;
-              var lineTwo = `<div>${d.variance}</div>`;
-              var ttStr = "<div>" + lineOne + lineTwo + "</div>"
-              console.log(ttStr)
+              tooltip.style('opacity', .8)
 
-              tooltip.style('opacity', 1)
+              var ttStr = `<div>${months[d.month]}, ${d.year}: ${d.variance}</div>`
 
               tooltip.html(ttStr)
                   .style('left', (d3.event.pageX - 35) + 'px')
                   .style('top',  (d3.event.pageY - 30) + 'px')
-
-              tempColor = this.style.fill;
-              d3.select(this)
-                  .style('opacity', .5)
-                  .style('fill', 'yellow')
           })
 
           .on('mouseout', function(d) {
-              d3.select(this)
-                  .style('opacity', 1)
-                  .style('fill', tempColor)
-
               tooltip.style('opacity', 0)
           })
-
 
   var vGuideScale = d3.scale.ordinal()
           .domain(months)
@@ -134,51 +121,4 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   var tooltip = d3.select('body').append('div')
     .classed('tooltip',  true)
 
-//
-//   var xAxisAttrs = hGuide.node().getBBox()
-//   var xAxisWidth = width - margin.left - margin.right
-//
-//   var xAxisLoc = (d3.transform(hGuide.attr("transform")).translate);
-//   var xLabel = d3.select("svg").append("text")      // text label for the x axis
-//   // .attr("x", width/2 + margin.left)
-//   // .attr("y", height + margin.bottom  )
-//     .attr('transform', 'translate(' + (xAxisAttrs.x+(xAxisAttrs.width/2)+margin.left) + ', ' + (xAxisLoc[1] + xAxisAttrs.height + 10 ) + ')')
-//     .style("text-anchor", "middle ")
-//     .text("Minutes Behind");
-//
-//   var yAxisAttrs = vGuide.node().getBBox();
-//   var yAxisHeight = yAxisAttrs.height
-//   var yAxisLoc = (d3.transform(hGuide.attr("transform")).translate);
-//
-//   var yLabel = d3.select("svg").append("text")
-//     .attr('transform', 'translate('+ (margin.left - yAxisAttrs.width - 10) + ',' + (margin.top + yAxisAttrs.height/2) + ')rotate(-90)')
-//     .style("text-anchor", "middle ")
-//     .text("Rank")
-//
-//   var tooltip = d3.select('body').append('div')
-//     .classed('tooltip',  true)
-//
-//   console.log(d3.legend !== undefined)
-//
-//   var dotScale = d3.scale.ordinal()
-//     .domain(["Doping allegation", "No allegation"])
-//     .range(["#E55558", "#454644"])
-//
-//   var svg = d3.select('svg')
-//
-//   svg.append('g')
-//     .attr("class", "legendOrdinal")
-//     .attr("transform", "translate(20,20)");
-//
-//   var legendOrdinal = d3.legend.color()
-//   //d3 symbol creates a path-string, for example
-//   //"M0,-8.059274488676564L9.306048591020996,
-//   //8.059274488676564 -9.306048591020996,8.059274488676564Z"
-//   .shape("path", d3.svg.symbol().type("circle").size(75)())
-//     .shapePadding(10)
-//     .scale(dotScale);
-//
-//   svg.select(".legendOrdinal")
-//     .call(legendOrdinal)
-//     .attr('transform', 'translate(' + (width * .8) + ', ' + (height * .9) + ')')
 })
