@@ -15,9 +15,14 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
   var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
     "Oct", "Nov", "Dec"];
 
-  var yScale = d3.scale.linear()
-          .domain([0, 11])
-          .range([0, height])
+  // var yScale = d3.scale.linear()
+  //         .domain([0, 11])
+  //         .range([0, height])
+
+  var yScale = function(month){
+    //month: integer (0-11)
+    return month * (height/12)
+  }
 
   var boxHeight = height / 12
 
@@ -69,7 +74,7 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
 
               tooltip.style('opacity', .8)
 
-              var ttStr = `<div>${months[d.month]}, ${d.year}: ${d.variance}</div>`
+              var ttStr = `<div>${months[d.month-1]}, ${d.year}: ${d.variance}</div>`
 
               tooltip.html(ttStr)
                   .style('left', (d3.event.pageX - 35) + 'px')
@@ -82,9 +87,7 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
 
   var vGuideScale = d3.scale.ordinal()
           .domain(months)
-          .range(d3.range(0, height + boxHeight, height/11))
-          // .domain(["one", "two", "three"])
-          // .range([0, height/2, height])
+          .range(d3.range(0, height + boxHeight, height/12))
 
   var vAxis = d3.svg.axis()
       .scale(vGuideScale)
@@ -95,11 +98,9 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
       vAxis(vGuide)
       vGuide.attr('transform', 'translate(' + margin.left + ', ' + (margin.top + (boxHeight/2)) + ')')
       vGuide.selectAll('path')
-          // .style({ fill: 'none', stroke: "#000"})
           .style('visibility', 'hidden')
       vGuide.selectAll('line')
           .style('visibility', 'hidden')
-          // .style({ fill: 'none', stroke: "#000"})
 
   var hGuideScale = d3.scale.linear()
           .domain([startYear, endYear])
@@ -112,7 +113,7 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
 
   var hGuide = d3.select('svg').append('g')
       hAxis(hGuide)
-      hGuide.attr('transform', 'translate(' + (margin.left) + ', ' + (height + margin.top + boxHeight) + ')')
+      hGuide.attr('transform', 'translate(' + (margin.left) + ', ' + (height + margin.top) + ')')
       hGuide.selectAll('path')
           .style({ fill: 'none', stroke: "#000"})
       hGuide.selectAll('line')
