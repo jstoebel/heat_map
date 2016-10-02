@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:700|Exo+2:300,600);
+* {
+  font-family: "Roboto Slab"; }
+
+.tooltip {
+  position: absolute;
+  padding: 0 10px;
+  background: white;
+  opacity: 0; }
+
+.bar {
+  background-color: #619CFF; }
+
+/*# sourceMappingURL=style.css.map */
