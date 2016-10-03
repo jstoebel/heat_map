@@ -6,7 +6,7 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
 
   var colors = ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"];
 
-  var vpWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 50;
+  var vpWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 200;
   var vpHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 100 ;
 
   var height = vpHeight - margin.top - margin.bottom,
@@ -70,9 +70,10 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
           .attr('width', width/(endYear - startYear))
           .attr('height', boxHeight)
 
-          .on('mouseover', function(d) {
-
-              tooltip.style('opacity', .8)
+          .on('mouseenter', function(d) {
+              tooltip.transition()
+              .duration(100)
+              .style('opacity', .8)
 
               var ttStr = `<div>${months[d.month-1]}, ${d.year}: ${d.variance}</div>`
 
@@ -82,7 +83,12 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
           })
 
           .on('mouseout', function(d) {
-              tooltip.style('opacity', 0)
+
+            console.log("Mouseout: "+`${months[d.month-1]}, ${d.year}`)
+
+            tooltip.transition()
+              .duration(200)
+              .style("opacity", 0);
           })
 
   var vGuideScale = d3.scale.ordinal()
@@ -119,7 +125,7 @@ d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
       hGuide.selectAll('line')
           .style({ stroke: "#000"})
 
-  var tooltip = d3.select('body').append('div')
+  var tooltip = d3.select('#chart').insert("div", ":first-child")
     .classed('tooltip',  true)
 
 })
